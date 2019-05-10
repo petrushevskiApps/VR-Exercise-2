@@ -6,10 +6,14 @@ public class DoorController : MonoBehaviour
 {
     Animator animator;
 
+    public AudioSource doorOpen;
+    public AudioSource doorClose;
+
     // Use this for initialization
     void Start ()
     {
         animator = GetComponent<Animator>();
+        //audioSource = GetComponent<AudioSource>();
     }
 
     private void OnTriggerEnter(Collider other)
@@ -23,6 +27,10 @@ public class DoorController : MonoBehaviour
 
     private void AnimateDoor()
     {
-        animator.SetBool("openDoor", !animator.GetBool("openDoor"));
+        bool doorReverseState = !animator.GetBool("openDoor");
+        animator.SetBool("openDoor", doorReverseState);
+
+        if (doorReverseState) doorOpen.Play();
+        else doorClose.Play();
     }
 }
